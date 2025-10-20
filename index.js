@@ -25,6 +25,12 @@ export const extensionName = "rpgTracker";
 const extensionNameLong = `ST-${extensionName}`;
 export const extensionFolderPath = `scripts/extensions/third-party/${extensionNameLong}`;
 
+console.log('[rpgTracker] extensionFolderPath =', extensionFolderPath);
+fetch(`${extensionFolderPath}/html/settings.html`, {cache:'no-store'})
+  .then(r => console.log('[rpgTracker] settings.html fetch status =', r.status))
+  .catch(e => console.error('[rpgTracker] settings fetch error', e));
+
+
 if (!extension_settings[extensionName.toLowerCase()]) extension_settings[extensionName.toLowerCase()] = {};
 export const extensionSettings = extension_settings[extensionName.toLowerCase()];
 
@@ -136,3 +142,5 @@ SlashCommandParser.addCommandObject(SlashCommand.fromProps({
 	helpString: 'Get or set the tracker extension enabled/dissabled state.',
 	aliases: ['toggle-tracker'],
 }));
+
+
