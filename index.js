@@ -136,3 +136,41 @@ SlashCommandParser.addCommandObject(SlashCommand.fromProps({
 	helpString: 'Get or set the tracker extension enabled/dissabled state.',
 	aliases: ['toggle-tracker'],
 }));
+
+// ---- Rename settings section header from "Tracker" -> "rpgTracker" ----
+(() => {
+  const NEW_LABEL = 'rpgTracker';
+
+  function tryRename() {
+    // Look through the settings panel for the section that contains "Enable Tracker"
+    const roots = document.querySelectorAll('#extensions_settings, #extensions-settings, #extensionsSettings, .extensions-settings');
+    roots.forEach(root => {
+      const sections = root.querySelectorAll('details');
+      sections.forEach(sec => {
+        if (sec.textContent.includes('Enable Tracker')) {
+          const summary = sec.querySelector('summary, h3, .section-title');
+          if (summary && /\bTracker\b/.test(summary.textContent)) {
+            summary.textContent = summary.textContent.replace(/\bTracker\b/g, NEW_LABEL);
+          }
+        }
+      });
+    });
+  }
+
+  // Run once on load + again whenever settings UI refreshes
+  window.addEventListener('load', () => {
+    tryRename();
+    // Re-apply after the user toggles the Extensions panel or settings refresh
+    document.addEventListener('click', (e) => {
+      if (e.target && (e.target.closest?.('#extensions_settings, #extensions-settings, #extensionsSettings'))) {
+        setTimeout(tryRename, 50);
+      }
+    });
+    // If your build exposes ST events, hook them too:
+    try {
+      const { eventSource, event_types } = SillyTavern.getContext();
+      eventSource?.on?.(event_types.SETTINGS_LOADED, tryRename);
+      eventSource?.on?.(event_types.SETTINGS_UPDATED, tryRename);
+    } catch {}
+  });
+})();
