@@ -21,7 +21,7 @@ import { TrackerPreviewManager } from "./src/ui/trackerPreviewManager.js";
 import { generateTrackerCommand, getTrackerCommand, saveTrackerToMessageCommand, stateTrackerCommand, trackerOverrideCommand } from "./src/commands.js";
 import { FIELD_INCLUDE_OPTIONS } from "./src/trackerDataHandler.js";
 
-export const extensionName = "rpgTracker";
+export const extensionName = "Tracker";
 const extensionNameLong = `SillyTavern-${extensionName}`;
 export const extensionFolderPath = `scripts/extensions/third-party/${extensionNameLong}`;
 
