@@ -25,12 +25,6 @@ export const extensionName = "rpgTracker";
 const extensionNameLong = `ST-${extensionName}`;
 export const extensionFolderPath = `scripts/extensions/third-party/${extensionNameLong}`;
 
-console.log('[rpgTracker] extensionFolderPath =', extensionFolderPath);
-fetch(`${extensionFolderPath}/html/settings.html`, {cache:'no-store'})
-  .then(r => console.log('[rpgTracker] settings.html fetch status =', r.status))
-  .catch(e => console.error('[rpgTracker] settings fetch error', e));
-
-
 if (!extension_settings[extensionName.toLowerCase()]) extension_settings[extensionName.toLowerCase()] = {};
 export const extensionSettings = extension_settings[extensionName.toLowerCase()];
 
@@ -39,6 +33,12 @@ jQuery(async () => {
 	await TrackerInterface.initializeTrackerButtons();
 	TrackerPreviewManager.init();
 });
+
+// put this once, after you define your init/injectSettings function
+const { eventSource, event_types } = SillyTavern.getContext();
+eventSource.on(event_types.APP_READY, injectSettings);
+eventSource.on(event_types.SETTINGS_LOADED, injectSettings);
+
 
 registerGenerationMutexListeners();
 
