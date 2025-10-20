@@ -1,0 +1,73 @@
+.rpgfusion {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 320px;
+  z-index: 4999;
+  color: var(--ft-text);
+  font-family: Inter, system-ui, Segoe UI, Roboto, Arial;
+  background: var(--ft-bg);
+}
+
+.rpgfusion.dock-right {
+  right: 0;
+  order-left: 1px solid var(--ft-border);
+}
+
+.rpgfusion.dock-left {
+  left: 0;
+  border-right: 1px solid var(--ft-border);
+}
+
+.rf-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-bottom: 1px solid var(--ft-border);
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(6px);
+}
+
+.rf-title {
+  font-weight: 700;
+  margin-right: auto;
+}
+
+.rf-tools {
+  display: flex;
+  gap: 6px;
+}
+
+.rf-dice {
+  width: 88px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  background: #0b1221;
+  border: 1px solid var(--ft-border);
+  color: var(--ft-text);
+}
+
+.rf-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 10px;
+  height: calc(100% - 52px);
+  overflow: auto;
+}
+
+.rf-floater {
+  padding: 10px;
+  border: 1px solid var(--ft-border);
+  background: var(--ft-card);
+  border-radius: 12px;
+  color: var(--ft-text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.rf-floater.is-collapsed {
+  font-size: 12px;
+  padding: 6px;
+}
