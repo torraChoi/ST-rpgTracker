@@ -1,11 +1,11 @@
 {
 	"display_name": "rpgTracker",
-	"loading_order": 1,
+	"loading_order": 10,
 	"requires": [],
 	"optional": [],
-	"js": ["index.js", "fusion/theme-dice.js", "fusion/floater-ui.js"],
-  	"css": ["style.css", "fusion/floater.css"],
+	"js": "index.js",
+  	"css": "style.css",
 	"author": "606",
 	"version": "0.0.1",
-	"homePage": "https://github.com/torraChoi"
+	"homePage": "https://github.com/torraChoi/ST-rpgTracker"
 }
