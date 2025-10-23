@@ -28,11 +28,9 @@ export const extensionFolderPath = `scripts/extensions/third-party/${extensionNa
 if (!extension_settings[extensionName.toLowerCase()]) extension_settings[extensionName.toLowerCase()] = {};
 export const extensionSettings = extension_settings[extensionName.toLowerCase()];
 
-jQuery(async () => {
-	await initSettings();
-	await TrackerInterface.initializeTrackerButtons();
-	TrackerPreviewManager.init();
-});
+
+// Add HERE LATER
+
 
 // put this once, after you define your init/injectSettings function
 const { eventSource, event_types } = SillyTavern.getContext();
