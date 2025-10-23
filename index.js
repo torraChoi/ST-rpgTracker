@@ -144,3 +144,43 @@ SlashCommandParser.addCommandObject(SlashCommand.fromProps({
 }));
 
 
+
+// put at the very end of index.js
+(function ensureSettingsInjected(){
+  const root = typeof extensionFolderPath === 'string'
+    ? extensionFolderPath
+    : '/scripts/extensions/third-party/ST-rpgTracker';
+
+  async function inject() {
+    try {
+      const panel = document.querySelector('#extensions_settings, #extensions-settings, #extensionsSettings');
+      if (!panel) return; // panel not mounted yet
+      const url = `${root}/html/settings.html`;
+      const resp = await fetch(url, { cache: 'no-store' });
+      if (!resp.ok) { console.warn('[rpgTracker] settings missing at', url, resp.status); return; }
+      const html = await resp.text();
+
+      let mount = panel.querySelector('#rpgtracker-settings-root');
+      if (!mount) {
+        mount = document.createElement('div');
+        mount.id = 'rpgtracker-settings-root';
+        panel.appendChild(mount);
+      }
+      mount.innerHTML = html;
+      console.log('[rpgTracker] settings injected from', url);
+    } catch (e) {
+      console.error('[rpgTracker] inject settings failed', e);
+    }
+  }
+
+  window.addEventListener('load', () => {
+    try {
+      const { eventSource, event_types } = SillyTavern.getContext();
+      eventSource.on(event_types.APP_READY, inject);
+      eventSource.on(event_types.SETTINGS_LOADED, inject);
+      setTimeout(inject, 500); // belt & suspenders
+    } catch {
+      setTimeout(inject, 800);
+    }
+  });
+})();
