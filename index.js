@@ -142,13 +142,3 @@ SlashCommandParser.addCommandObject(SlashCommand.fromProps({
 	helpString: 'Get or set the tracker extension enabled/dissabled state.',
 	aliases: ['toggle-tracker'],
 }));
-
-
-try {
-  console.log('[rpgTracker] extensionFolderPath =', typeof extensionFolderPath === 'string' ? extensionFolderPath : '(missing)');
-  fetch((extensionFolderPath || '') + '/html/settings.html', { cache: 'no-store' })
-    .then(r => console.log('[rpgTracker] settings.html status =', r.status))
-    .catch(e => console.error('[rpgTracker] settings fetch error', e));
-} catch (e) {
-  console.error('[rpgTracker] early error:', e);
-}
